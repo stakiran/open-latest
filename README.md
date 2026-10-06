@@ -1,4 +1,6 @@
 # open-latest
+<img width="901" height="317" alt="Image" src="https://github.com/user-attachments/assets/8e9cf482-9191-43b9-b1fc-19981f00e5e2" />
+
 Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロンプトの上に出る「エディタで開く」ボタンからエディタで開けるようにするプラグインです。
 
 長い回答をターミナルで読むのがつらいとき、使い慣れたエディタでじっくり読めます。
