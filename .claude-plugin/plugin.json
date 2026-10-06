@@ -1,5 +1,6 @@
 {
   "name": "open-latest",
   "version": "0.2.0",
-  "description": "Claude の最新の回答を latest.md に書き出し、プロンプト上のボタンでエディタで開く"
+  "description": "Claude の最新の回答を latest.md に書き出し、プロンプト上のボタンでエディタで開く",
+  "license": "MIT"
 }

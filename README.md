@@ -73,3 +73,6 @@ claude --plugin-dir ./open-latest
 ```
 
 起動したら何か質問して回答を待ち、プロンプトの上に open と copy のボタンが出ることを確かめてください。
+
+## ライセンス
+[MIT License](LICENSE)
