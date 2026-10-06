@@ -18,12 +18,25 @@ Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロ
 ## 導入方法
 
 ### ステップ 1: マーケットプレイスを追加する
+このリポジトリを「プラグインの入手元」として登録します。これだけではまだプラグインは動きません。最初の 1 回だけ必要です。入手元の指定方法は 3 通りあります。
+
+GitHub のリポジトリ（`owner/repo`）:
 
 ```
 claude plugin marketplace add stakiran/open-latest
 ```
 
-このリポジトリを「プラグインの入手元」として登録します。これだけではまだプラグインは動きません。最初の 1 回だけ必要です。
+git の URL:
+
+```
+claude plugin marketplace add https://github.com/stakiran/open-latest.git
+```
+
+ローカルのディレクトリ（clone 済みのフォルダなど）:
+
+```
+claude plugin marketplace add D:\path\to\open-latest
+```
 
 ### ステップ 2: プラグインをインストールする
 3 通りあります。
