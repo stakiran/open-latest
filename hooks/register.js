@@ -16,8 +16,7 @@ export function register(on) {
   on('turn.complete', async ($, e, next) => {
     // サブエージェントのターン、中断されたターン、空の回答は無視
     if (e.agentId || e.isAborted || !e.answer) return next(e)
-    // 先頭の BOM は秀丸に UTF-8 と確実に認識させるため
-    await $.fs.write(await latestPath($), '\uFEFF' + e.answer)
+    await $.fs.write(await latestPath($), e.answer)
     hasLatest = true
     $.ui.invalidate('ui.render')
     return next(e)
