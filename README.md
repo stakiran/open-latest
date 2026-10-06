@@ -1,5 +1,5 @@
 # open-latest
-<img width="901" height="317" alt="Image" src="https://github.com/user-attachments/assets/8e9cf482-9191-43b9-b1fc-19981f00e5e2" />
+<img width="634" height="263" alt="Image" src="https://github.com/user-attachments/assets/695fd5d3-02a7-428b-85c9-b6ddf4392f84" />
 
 Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロンプトの上に出る open ボタンからエディタで開けるようにするプラグインです。
 
