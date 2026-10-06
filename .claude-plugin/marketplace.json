@@ -1,0 +1,5 @@
+{
+  "name": "open-latest",
+  "owner": { "name": "stakiran" },
+  "plugins": [{ "name": "open-latest", "source": "./" }]
+}
