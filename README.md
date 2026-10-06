@@ -1,7 +1,7 @@
 # open-latest
 <img width="901" height="317" alt="Image" src="https://github.com/user-attachments/assets/8e9cf482-9191-43b9-b1fc-19981f00e5e2" />
 
-Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロンプトの上に出る「エディタで開く」ボタンからエディタで開けるようにするプラグインです。
+Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロンプトの上に出る open ボタンからエディタで開けるようにするプラグインです。
 
 長い回答をターミナルで読むのがつらいとき、使い慣れたエディタでじっくり読めます。
 
@@ -9,8 +9,9 @@ Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロ
 - ターンが終わるたびに、Claude の最終回答を `%USERPROFILE%\.claude\latest.md` に上書き保存します
   - サブエージェントの回答、中断されたターン、空の回答は保存しません
   - UTF-8 で保存します
-- `latest.md` があるとき、プロンプトの上に「エディタで開く」ボタンが出ます
-- ボタンを押すと、`.md` に関連付けられたアプリで `latest.md` を開きます
+- `latest.md` があるとき、プロンプトの上に open と copy の 2 つのボタンが出ます
+- open ボタンを押すと、`.md` に関連付けられたアプリで `latest.md` を開きます
+- copy ボタンを押すと、最新の回答をクリップボードにコピーします
 
 ## 動作環境
 - Windows（`rundll32` で関連付けられたアプリを起動するため）
@@ -71,4 +72,4 @@ git clone https://github.com/stakiran/open-latest.git
 claude --plugin-dir ./open-latest
 ```
 
-起動したら何か質問して回答を待ち、プロンプトの上に「エディタで開く」ボタンが出ることを確かめてください。
+起動したら何か質問して回答を待ち、プロンプトの上に open と copy のボタンが出ることを確かめてください。

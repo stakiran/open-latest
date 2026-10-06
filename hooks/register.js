@@ -17,6 +17,8 @@ export function register(on) {
     // サブエージェントのターン、中断されたターン、空の回答は無視
     if (e.agentId || e.isAborted || !e.answer) return next(e)
     await $.fs.write(await latestPath($), e.answer)
+    // コピー用。$.fs には読み込みがないので、セッションをまたいで残る $.store にも持っておく
+    await $.store.set('latest', e.answer).catch(() => $.store.delete('latest'))
     hasLatest = true
     $.ui.invalidate('ui.render')
     return next(e)
@@ -29,9 +31,9 @@ export function register(on) {
     if (!hasLatest) return others
 
     const { Box, Button } = $.ui.resolve(e)
-    const button = Button({
+    const openButton = Button({
       key: 'open-latest',
-      label: 'エディタで開く',
+      label: 'open',
       plain: true,
       onPress: async () => {
         try {
@@ -44,10 +46,26 @@ export function register(on) {
         }
       },
     })
+    const copyButton = Button({
+      key: 'copy-latest',
+      label: 'copy',
+      plain: true,
+      onPress: async press => {
+        const text = await $.store.get('latest')
+        if (typeof text !== 'string') return $.ui.toast('コピーできる回答がありません')
+        const r = await $.ui.copy({ text, surface: press.surface })
+        $.ui.toast(r.isCopied ? '回答をコピーしました' : 'コピーできませんでした: ' + r.reason)
+      },
+    })
+    const buttons = Box({
+      flexDirection: 'row',
+      columnGap: 2,
+      children: [openButton, copyButton],
+    })
 
     return Box({
       flexDirection: 'column',
-      children: others ? [button, others] : [button],
+      children: others ? [buttons, others] : [buttons],
     })
   })
 }
