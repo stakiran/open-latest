@@ -33,7 +33,6 @@ export function register(on) {
     const button = Button({
       key: 'open-latest',
       label: 'エディタで開く',
-      hotkey: '0',
       plain: true,
       onPress: async () => {
         try {
