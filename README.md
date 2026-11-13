@@ -6,7 +6,9 @@ Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロ
 長い回答をターミナルで読むのがつらいとき、使い慣れたエディタでじっくり読めます。
 
 ## 動作
-- ターンが終わるたびに、Claude の最終回答を `%USERPROFILE%\.claude\latest.md` に上書き保存します
+- ターンが終わるたびに、Claude の最終回答を `%USERPROFILE%\.claude\latest\YYMMDD-HHmmss.md`（例: `261113-142305.md`）に保存します
+  - 回答ごとに別ファイルとして残ります。古いファイルは自動では消しません
+- 同じ内容を `%USERPROFILE%\.claude\latest.md` にも上書き保存します（常に最新の回答）
   - サブエージェントの回答、中断されたターン、空の回答は保存しません
   - UTF-8 で保存します
 - `latest.md` があるとき、プロンプトの上に open と copy の 2 つのボタンが出ます

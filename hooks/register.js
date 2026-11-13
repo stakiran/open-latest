@@ -6,16 +6,28 @@ async function latestPath($) {
   return home + '\\.claude\\latest.md'
 }
 
+// 履歴ファイルのパス。~/.claude/latest/YYMMDD-HHmmss.md（ローカル時刻）
+async function historyPath($) {
+  const home = await $.env.get('USERPROFILE')
+  const d = new Date(await $.clock.now())
+  const p = n => String(n).padStart(2, '0')
+  const date = p(d.getFullYear() % 100) + p(d.getMonth() + 1) + p(d.getDate())
+  const time = p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds())
+  return home + '\\.claude\\latest\\' + date + '-' + time + '.md'
+}
+
 export function register(on) {
   on('session.start', async ($, e, next) => {
     hasLatest = await $.fs.exists(await latestPath($))
     return next(e)
   })
 
-  // ターン終了時に最終回答を latest.md に上書き保存
+  // ターン終了時に最終回答を履歴ファイルに保存し、latest.md にも上書き保存
   on('turn.complete', async ($, e, next) => {
     // サブエージェントのターン、中断されたターン、空の回答は無視
     if (e.agentId || e.isAborted || !e.answer) return next(e)
+    // 履歴の保存に失敗しても latest.md（open ボタン）は生かす
+    await $.fs.write(await historyPath($), e.answer).catch(err => $.ui.toast('履歴を保存できませんでした: ' + err))
     await $.fs.write(await latestPath($), e.answer)
     // コピー用。$.fs には読み込みがないので、セッションをまたいで残る $.store にも持っておく
     await $.store.set('latest', e.answer).catch(() => $.store.delete('latest'))
