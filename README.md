@@ -1,14 +1,15 @@
 # open-latest
 <img width="634" height="263" alt="Image" src="https://github.com/user-attachments/assets/695fd5d3-02a7-428b-85c9-b6ddf4392f84" />
 
-Claude Code の最新の回答を `~/.claude/latest.md` に書き出し、プロンプトの上に出る open ボタンからエディタで開けるようにするプラグインです。
+Claude Code の最新の回答を `~/.claude/latest/latest.md` に書き出し、プロンプトの上に出る open ボタンからエディタで開けるようにするプラグインです。
 
 長い回答をターミナルで読むのがつらいとき、使い慣れたエディタでじっくり読めます。
 
 ## 動作
 - ターンが終わるたびに、Claude の最終回答を `%USERPROFILE%\.claude\latest\YYMMDD-HHmmss.md`（例: `261113-142305.md`）に保存します
   - 回答ごとに別ファイルとして残ります。古いファイルは自動では消しません
-- 同じ内容を `%USERPROFILE%\.claude\latest.md` にも上書き保存します（常に最新の回答）
+- 同じ内容を `%USERPROFILE%\.claude\latest\latest.md` にも上書き保存します（常に最新の回答）
+  - 0.3.0 以前は `%USERPROFILE%\.claude\latest.md` に保存していました。古いファイルが残っている場合は削除して構いません
   - サブエージェントの回答、中断されたターン、空の回答は保存しません
   - UTF-8 で保存します
 - `latest.md` があるとき、プロンプトの上に open と copy の 2 つのボタンが出ます

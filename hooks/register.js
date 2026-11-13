@@ -3,7 +3,7 @@ let hasLatest = false
 
 async function latestPath($) {
   const home = await $.env.get('USERPROFILE')
-  return home + '\\.claude\\latest.md'
+  return home + '\\.claude\\latest\\latest.md'
 }
 
 // 履歴ファイルのパス。~/.claude/latest/YYMMDD-HHmmss.md（ローカル時刻）
