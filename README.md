@@ -66,6 +66,18 @@ claude plugin install open-latest@open-latest --scope local
 
 アンインストールするときは `/plugin` のメニューから open-latest を削除してください。
 
+## 更新方法
+マーケットプレイスの情報を取り直してから、プラグインを更新します。
+
+```
+claude plugin marketplace update open-latest
+claude plugin update open-latest@open-latest
+```
+
+`--scope project` や `--scope local` でインストールした場合は、`claude plugin update` にも同じ `--scope` を付けてください。
+
+更新は Claude Code を再起動すると反映されます。
+
 ## 導入はしないが試したい
 インストールせずに、そのセッションだけ読み込んで試せます。Claude Code を閉じれば元に戻ります。
 
