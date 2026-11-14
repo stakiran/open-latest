@@ -72,12 +72,22 @@ claude plugin install open-latest@open-latest --scope local
 
 ```
 claude plugin marketplace update open-latest
-claude plugin update open-latest@open-latest
+claude plugin update open-latest@open-latest --scope user
 ```
 
-`--scope project` や `--scope local` でインストールした場合は、`claude plugin update` にも同じ `--scope` を付けてください。
-
 更新は Claude Code を再起動すると反映されます。
+
+### project や local でインストールした場合
+`--scope user` の代わりに、インストールしたときと同じ `--scope` を付けて、そのディレクトリで実行します。
+
+```
+claude plugin update open-latest@open-latest --scope project
+claude plugin update open-latest@open-latest --scope local
+```
+
+複数の scope に入れている場合は、scope ごとに実行してください。
+
+`--scope` は省略しないでください。省略すると更新対象が実行したディレクトリから自動判定され、user を更新したつもりでも、そのディレクトリの project や local のほうだけが更新されることがあります。
 
 ## 導入はしないが試したい
 インストールせずに、そのセッションだけ読み込んで試せます。Claude Code を閉じれば元に戻ります。
