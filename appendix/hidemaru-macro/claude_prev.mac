@@ -1,0 +1,92 @@
+﻿// claude_prev.mac : %USERPROFILE%\.claude\latest 内の「一つ前(古い側)」の .md を開く
+// claude_next.mac との違いは #step の値だけ (-1 = 前 / +1 = 後)
+#step = -1;
+
+$dir    = getenv("USERPROFILE") + "\\.claude\\latest";
+$cur    = basename2;
+$target = "";
+$err    = "";
+
+// 今のファイルが対象フォルダ内にあるか (なければ最新のファイルを開く)
+#infolder = 0;
+if (tolower(directory2) == tolower($dir)) {
+    #infolder = 1;
+}
+
+jsmode "JScript";
+js {
+    (function () {
+        try {
+            var dir      = String(getVar("$dir"));
+            var cur      = String(getVar("$cur")).toLowerCase();
+            var step     = Number(getVar("#step"));
+            var inFolder = Number(getVar("#infolder"));
+
+            var fso = createobject("Scripting.FileSystemObject");
+            if (!fso.FolderExists(dir)) {
+                setVar("$err", "フォルダが見つかりません:\n" + dir);
+                return;
+            }
+
+            // .md を列挙してファイル名昇順に並べる (yymmdd-hhmmss なので古い順になる)
+            var names = [];
+            var e = new Enumerator(fso.GetFolder(dir).Files);
+            for (; !e.atEnd(); e.moveNext()) {
+                var name = String(e.item().Name);
+                if (/\.md$/i.test(name)) {
+                    names.push(name);
+                }
+            }
+            if (names.length == 0) {
+                setVar("$err", ".md ファイルがありません:\n" + dir);
+                return;
+            }
+            names.sort(function (a, b) {
+                a = a.toLowerCase();
+                b = b.toLowerCase();
+                return a < b ? -1 : (a > b ? 1 : 0);
+            });
+
+            // 今のファイルの位置を探す
+            var idx = -1;
+            if (inFolder) {
+                for (var i = 0; i < names.length; i++) {
+                    if (names[i].toLowerCase() == cur) {
+                        idx = i;
+                        break;
+                    }
+                }
+            }
+
+            var next;
+            if (idx < 0) {
+                next = names.length - 1;        // フォルダ外から実行 → 最新を開く
+            } else {
+                next = idx + step;
+            }
+            if (next < 0) {
+                setVar("$err", "これより前のファイルはありません。");
+                return;
+            }
+            if (next >= names.length) {
+                setVar("$err", "これより後のファイルはありません。");
+                return;
+            }
+            setVar("$target", dir + "\\" + names[next]);
+        } catch (ex) {
+            setVar("$err", "エラー: " + ex.message);
+        }
+    })();
+}
+
+if ($err != "") {
+    message $err;
+    endmacro;
+}
+if ($target == "") {
+    endmacro;
+}
+
+// 同じウィンドウ(タブ)で開き直す。別タブで開きたい場合は openfile に変える
+loadfile $target;
+endmacro;
